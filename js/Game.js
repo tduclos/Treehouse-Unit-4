@@ -45,7 +45,7 @@ class Game{
     };
     
  /* gameOver()
-* displays game over message
+* displays game over message depending on whether the player won or lost, then resets the game
 * @param {boolean} win - whether or not the user has won the game */ 
     
     gameOver(win){
@@ -59,6 +59,8 @@ class Game{
             document.getElementById("overlay").className = "lose"
             document.getElementById("overlay").style.display = ""
         }
+        
+        this.reset();
            
   }
     
@@ -102,6 +104,28 @@ class Game{
         }
 
     }
+    
+/* reset()
+* Resets the game so the user can play again */ 
+    
+    reset(){
+        
+        this.activePhrase = null;                                                                               //reset chosen phrase
+        const phraseList = document.getElementById("phrase").firstElementChild;
+        phraseList.innerHTML = '';                                                                              //reset all lis out of the ul
+        
+        this.missed = 0;                                                                                        //reset internal 'missed' count
+        for(let i = 0; i < document.querySelectorAll(".tries").length ; i+=1 ) {
+            document.querySelectorAll(".tries")[i].firstElementChild.setAttribute("src","images/liveHeart.png") //reset hearts
+        }
+        
+        const keys = document.querySelectorAll('.keyrow button');                                               //reset keys to original state
+        keys.forEach(key => {
+            key.className = "key";
+            key.disabled = false;
+        });
+        
+    };
         
 };
     

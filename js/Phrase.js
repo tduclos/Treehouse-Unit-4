@@ -8,7 +8,7 @@ class Phrase{
     };
     
 /* addPhraseToDisplay()
-* adds every individual char in the given string into separate li objects and loads them into the ul for play*/ 
+* adds every individual char in this.phrase into separate li objects and loads them into the ul for play*/ 
     
     addPhraseToDisplay(){
         
