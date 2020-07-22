@@ -14,11 +14,18 @@ class Game{
         this.activePhrase = null;
     }; 
     
+/* getRandomPhrase()
+* Selects a phrase from the 'phrases' array
+* @return {String} The phrase to be used */
+    
     getRandomPhrase(){
         const index = Math.floor(Math.random() * this.phrases.length);
         console.log(index);
         return this.phrases[index].phrase;
     };
+    
+/* startGame()
+* Removes the overlay div and displays a random phrase for the user to play with */
     
     startGame(){
         document.getElementById("overlay").style.display = "none"
@@ -26,4 +33,59 @@ class Game{
         this.activePhrase.addPhraseToDisplay()
     };
     
+/* checkForWin()
+* Checks for a winning move
+* @param {boolean} True if the game is won, false if not */    
+    
+    checkForWin(){
+        
+        //Shoutouts to fellow Treehouse student Frank Suchwala for cutting my monstrosity of a function into a single line!
+        return document.getElementsByClassName("hide letter").length === 0;
+       
+    };
+    
+/* removeLife()
+* Adds 1 to 'missed' property
+* removes a heart from the UI
+* ends game if player is out of hearts */  
+    
+    removeLife(){
+        
+        const tries = document.querySelectorAll(".tries");
+        tries[this.missed].firstElementChild.setAttribute("src","images/lostHeart.png");
+        this.missed++;
+        if(this.missed == 5) {
+            console.log('game over!');
+            this.gameOver(this.checkForWin());
+        }
+        
+    };
+  
+/* gameOver()
+* displays game over message
+* @param {boolean} win - whether or not the user has won the game */ 
+    
+    gameOver(win){
+        
+        if (win) {
+            document.getElementById("game-over-message").innerHTML = 'Nice work!'
+            document.getElementById("overlay").className = "win"
+            document.getElementById("overlay").style.display = ""
+        } else {
+            document.getElementById("game-over-message").innerHTML = "Sorry, try again!"
+            document.getElementById("overlay").className = "lose"
+            document.getElementById("overlay").style.display = ""
+        }
+       
+  }
+    
+    /* handleInteraction()
+* 
+* */ 
+    
+    handleInteraction(){
+        
+    };
+        
 };
+    
