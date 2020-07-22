@@ -12,5 +12,18 @@ class Game{
             {phrase: 'your princess is in another castle'},
             {phrase: 'a slime draws near'}];
         this.activePhrase = null;
-    }    
+    }; 
+    
+    getRandomPhrase(){
+        const index = Math.floor(Math.random() * this.phrases.length);
+        console.log(index);
+        return this.phrases[index].phrase;
+    };
+    
+    startGame(){
+        document.getElementById("overlay").style.display = "none"
+        this.activePhrase = new Phrase(this.getRandomPhrase(this.phrases))
+        this.activePhrase.addPhraseToDisplay()
+    };
+    
 };
