@@ -44,24 +44,7 @@ class Game{
        
     };
     
-/* removeLife()
-* Adds 1 to 'missed' property
-* removes a heart from the UI
-* ends game if player is out of hearts */  
-    
-    removeLife(){
-        
-        const tries = document.querySelectorAll(".tries");
-        tries[this.missed].firstElementChild.setAttribute("src","images/lostHeart.png");
-        this.missed++;
-        if(this.missed == 5) {
-            console.log('game over!');
-            this.gameOver(this.checkForWin());
-        }
-        
-    };
-  
-/* gameOver()
+ /* gameOver()
 * displays game over message
 * @param {boolean} win - whether or not the user has won the game */ 
     
@@ -76,16 +59,49 @@ class Game{
             document.getElementById("overlay").className = "lose"
             document.getElementById("overlay").style.display = ""
         }
-       
+           
   }
     
-    /* handleInteraction()
-* 
-* */ 
+/* removeLife()
+* Adds 1 to 'missed' property
+* removes a heart from the UI
+* ends game if player is out of hearts */  
     
-    handleInteraction(){
+    removeLife(){
+        
+        const tries = document.querySelectorAll(".tries");
+        tries[this.missed].firstElementChild.setAttribute("src","images/lostHeart.png");
+        this.missed += 1;
+        if(this.missed == 5) {
+            console.log('game over!');
+            this.gameOver(this.checkForWin());
+        }
         
     };
+  
+
+    
+/* handleInteraction(button)
+*  Handles clicks on the on-screen keyboard
+*  @param (HTMLButtonElement) button - the key the user clicked on*/ 
+    
+    handleInteraction(button) {
+
+        let letter = button.innerHTML;
+        button.disabled = true;
+       
+        if(this.activePhrase.checkLetter(letter)){
+            button.className = "chosen";
+            this.activePhrase.showMatchedLetter(letter);
+            if(this.checkForWin()) {
+                this.gameOver(true);
+            }
+        } else { //else if the letter is is not the activePhrase
+            button.className = "wrong"
+            this.removeLife()
+        }
+
+    }
         
 };
     
